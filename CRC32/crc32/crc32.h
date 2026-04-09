@@ -24,7 +24,13 @@ public:
         return table;
     }();
 
-    static constexpr uint32_t proccess(const char* str, uint32_t);
+    static constexpr uint32_t crc32_byte(uint32_t crc, uint32_t byte) {
+        return (crc >> 8) ^ crc32::crc32_table[(crc ^ byte) & 0xff];
+    }
+
+    static constexpr uint32_t process(const char* str, uint32_t crc = 0xFFFFFFFF) {
+        return *str ? process(str + 1, crc32_byte(crc, static_cast<uint8_t>(*str))) : ~crc;
+    }
 };
 
 
