@@ -31,5 +31,9 @@ namespace test_crc32 {
     TEST(crc32_table_tests, cell_6) {
         static_assert(crc_table[5] == 0x706af48f, "crc_cell_1 is correct");
     }
+
+    TEST(crc32_tests, isComputedAtCompileTime) {
+        static_assert(crc32::process("string"), "crc32 computed at compile time");
+    }
 };
 
